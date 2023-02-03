@@ -1,60 +1,18 @@
-package com.yan.webapp.model;
+package com.yan.webapp.service;
 
 import jakarta.persistence.*;
-import jakarta.validation.constraints.Email;
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotNull;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
-import org.springframework.data.jpa.domain.support.AuditingEntityListener;
-
 
 import java.util.Date;
 
-
-@Entity
-@EntityListeners(AuditingEntityListener.class)
-public class Account {
-
-    @Id
-    @SequenceGenerator(
-            name = "account_id_sequence",
-            sequenceName = "account_id_sequence",
-            allocationSize = 1
-    )
-    @GeneratedValue(
-            strategy = GenerationType.SEQUENCE,
-            generator = "account_id_sequence"
-    )
+public class AccountDTO {
     private Long id;
-    @NotBlank
     private String email;
-
-    @NotBlank
-    private String password;
-    @NotBlank
     private String firstName;
-    @NotBlank
     private String lastName;
-
-    @Temporal(TemporalType.TIMESTAMP)
-    @CreatedDate
     private Date accountCreated;
-
-    @Temporal(TemporalType.TIMESTAMP)
-    @LastModifiedDate
     private Date accountUpdated;
-
-
-    public Account() {
-    }
-
-    public Account(String email, String password, String firstName, String lastName) {
-        this.email = email;
-        this.password = password;
-        this.firstName = firstName;
-        this.lastName = lastName;
-    }
 
     public Long getId() {
         return id;
@@ -70,14 +28,6 @@ public class Account {
 
     public void setEmail(String email) {
         this.email = email;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
     }
 
     public String getFirstName() {

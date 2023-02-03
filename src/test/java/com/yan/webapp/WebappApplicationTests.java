@@ -3,6 +3,7 @@ package com.yan.webapp;
 import com.yan.webapp.model.Account;
 import com.yan.webapp.repository.AccountRepository;
 import com.yan.webapp.service.AccountService;
+import jakarta.validation.Validator;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -10,6 +11,7 @@ import org.mockito.ArgumentCaptor;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.security.crypto.password.PasswordEncoder;
+
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.*;
@@ -21,6 +23,9 @@ class WebappApplicationTests {
 	private AccountRepository accountRepository;
 	@Mock
 	private PasswordEncoder passwordEncoder;
+
+	@Mock
+	private Validator validator;
 	private AccountService underTest;
 
 
