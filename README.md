@@ -7,7 +7,7 @@ For building and running the application you need:
 - JDK 17
 - Maven 3
 
-## Steps to Setup
+## Steps to Run
 
 
 **Build and run the app using maven**
