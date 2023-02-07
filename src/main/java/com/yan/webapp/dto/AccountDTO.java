@@ -1,8 +1,4 @@
-package com.yan.webapp.service;
-
-import jakarta.persistence.*;
-import org.springframework.data.annotation.CreatedDate;
-import org.springframework.data.annotation.LastModifiedDate;
+package com.yan.webapp.dto;
 
 import java.util.Date;
 
