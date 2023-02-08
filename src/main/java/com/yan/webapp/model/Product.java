@@ -3,6 +3,7 @@ package com.yan.webapp.model;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Max;
 import jakarta.validation.constraints.Min;
+import jakarta.validation.constraints.NotBlank;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
@@ -26,20 +27,30 @@ public class Product {
     )
     private Long productId;
 
+    @Column(name = "name")
+    @NotBlank
     private String name;
 
+    @Column(name = "description")
+    @NotBlank
     private String description;
 
+    @Column(name = "sku", unique = true)
+    @NotBlank
     private String sku;
 
+    @Column(name = "manufacturer")
+    @NotBlank
     private String manufacturer;
 
     @Min(0)
     @Max(100)
+    @Column(name = "quantity", nullable = false)
     private Long quantity;
 
     @Temporal(TemporalType.TIMESTAMP)
     @CreatedDate
+    @Column(name = "data_added")
     private Date dateAdded;
 
     @Temporal(TemporalType.TIMESTAMP)
@@ -116,6 +127,10 @@ public class Product {
 
     public Account getAccount() {
         return account;
+    }
+
+    public Long getOwnerUserId() {
+        return account.getId();
     }
 
     public void setAccount(Account account) {

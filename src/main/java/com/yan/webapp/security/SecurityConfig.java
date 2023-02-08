@@ -11,6 +11,10 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.web.servlet.LocaleResolver;
+import org.springframework.web.servlet.i18n.SessionLocaleResolver;
+
+import java.util.Locale;
 
 @Configuration
 @EnableWebSecurity
@@ -29,7 +33,7 @@ public class SecurityConfig {
                 .authorizeHttpRequests()
                 .requestMatchers(
                         HttpMethod.POST,
-                        "/v1/user", "/v1/product"
+                        "/v1/user"
                 )
                 .permitAll()
                 .requestMatchers(
@@ -39,10 +43,11 @@ public class SecurityConfig {
                 .permitAll()
                 .and()
                 .authorizeHttpRequests()
-                .requestMatchers("/v1/user/**")
+                .requestMatchers("/v1/user/**", "/v1/product/**")
                 .authenticated()
                 .and().httpBasic()
                 .and().build();
+
     }
 
     @Bean
@@ -58,6 +63,11 @@ public class SecurityConfig {
         return authenticationProvider;
     }
 
-
+    @Bean
+    public LocaleResolver localeResolver() {
+        SessionLocaleResolver slr = new SessionLocaleResolver();
+        slr.setDefaultLocale(Locale.US);
+        return slr;
+    }
 
 }

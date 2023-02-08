@@ -1,9 +1,13 @@
 package com.yan.webapp.dto;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+import jakarta.persistence.Column;
+
 import java.util.Date;
 
 public class ProductDTO {
 
+        @Column(name = "id")
         private Long productId;
 
         private String name;
@@ -16,10 +20,13 @@ public class ProductDTO {
 
         private Long quantity;
 
+        @JsonProperty("date_added")
         private Date dateAdded;
 
+        @JsonProperty("date_last_updated")
         private Date dataLastUpdated;
 
+        @JsonProperty("owner_user_id")
         private Long accountId;
 
         public Long getProductId() {

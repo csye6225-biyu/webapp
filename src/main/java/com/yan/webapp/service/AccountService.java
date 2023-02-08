@@ -23,10 +23,14 @@ public class AccountService {
 
     private final PasswordEncoder passwordEncoder;
     private final AccountRepository accountRepository;
+    private final UtilityService utilityService;
 
-    public AccountService(PasswordEncoder passwordEncoder, AccountRepository accountRepository) {
+    public AccountService(PasswordEncoder passwordEncoder,
+                          AccountRepository accountRepository,
+                          UtilityService utilityService) {
         this.passwordEncoder = passwordEncoder;
         this.accountRepository = accountRepository;
+        this.utilityService = utilityService;
     }
 
     ModelMapper modelMapper = new ModelMapper();
@@ -34,7 +38,11 @@ public class AccountService {
     /** Get an account by id. */
     public AccountDTO getAccountById(Long id) {
 
-        authenticateUser(id);
+        Account authUser =  utilityService.authenticateUser();
+
+        if (authUser.getId() != id) {
+            throw new ForbiddenException("You are not allowed to access other people's data");
+        }
 
         Account account = accountRepository.findById(id);
         if (account == null) {
@@ -52,6 +60,7 @@ public class AccountService {
         if (accountExists.isPresent()) {
             throw new BadRequestException("Email already registered");
         }
+
         // Encode password
         account.setPassword(passwordEncoder.encode(account.getPassword()));
 
@@ -66,7 +75,11 @@ public class AccountService {
     public boolean updateAccount(Long id,
                                  AccountUpdateRequest updateRequest) {
 
-        authenticateUser(id);
+        Account authUser =  utilityService.authenticateUser();
+
+        if (authUser.getId() != id) {
+            throw new ForbiddenException("You are not allowed to access other people's data");
+        }
 
         Account account = accountRepository.findById(id);
 
@@ -95,26 +108,5 @@ public class AccountService {
         return true;
     }
 
-    /**
-     * Authenticate user: get token and get username from the token,
-     * compare with request id to prevent forbidden request*/
-    public void authenticateUser(Long id) {
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-
-        if (authentication != null) {
-            Object principal = authentication.getPrincipal();
-            if (principal instanceof UserDetails) {
-                UserDetails userDetails = (UserDetails) principal;
-                // access user details, such as username, authorities, etc.
-                String userName = userDetails.getUsername();
-                Account accountExists = accountRepository.findByEmail(userName)
-                        .orElse(null);
-                if (accountExists.getId() != id) {
-                    throw new ForbiddenException("You are not allowed to access other people's data");
-                }
-            }
-        }
-
-    }
 
 }

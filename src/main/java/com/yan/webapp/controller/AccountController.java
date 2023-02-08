@@ -39,7 +39,7 @@ public class AccountController {
     }
 
     @PutMapping("v1/user/{accountId}")
-    public ResponseEntity<String>  updateAccount(
+    public ResponseEntity<Void>  updateAccount(
             @PathVariable("accountId") Long id,
             @RequestBody AccountUpdateRequest updateRequest
             ) {

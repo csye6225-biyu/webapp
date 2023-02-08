@@ -3,6 +3,7 @@ package com.yan.webapp;
 import com.yan.webapp.model.Account;
 import com.yan.webapp.repository.AccountRepository;
 import com.yan.webapp.service.AccountService;
+import com.yan.webapp.service.UtilityService;
 import jakarta.validation.Validator;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -25,13 +26,16 @@ class WebappApplicationTests {
 	private PasswordEncoder passwordEncoder;
 
 	@Mock
+	private UtilityService utilityService;
+
+	@Mock
 	private Validator validator;
 	private AccountService underTest;
 
 
 	@BeforeEach
 	void setUp() {
-		underTest = new AccountService(passwordEncoder, accountRepository);
+		underTest = new AccountService(passwordEncoder, accountRepository, utilityService);
 	}
 
 	@Test
