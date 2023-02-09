@@ -63,11 +63,4 @@ public class SecurityConfig {
         return authenticationProvider;
     }
 
-    @Bean
-    public LocaleResolver localeResolver() {
-        SessionLocaleResolver slr = new SessionLocaleResolver();
-        slr.setDefaultLocale(Locale.US);
-        return slr;
-    }
-
 }

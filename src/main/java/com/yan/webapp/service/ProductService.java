@@ -1,6 +1,8 @@
 package com.yan.webapp.service;
 
 import com.yan.webapp.dto.ProductDTO;
+import com.yan.webapp.dto.ProductPatchRequest;
+import com.yan.webapp.exception.BadRequestException;
 import com.yan.webapp.exception.ForbiddenException;
 import com.yan.webapp.exception.ResourceNotFoundException;
 import com.yan.webapp.model.Account;
@@ -106,5 +108,53 @@ public class ProductService {
         }
 
         productRepository.deleteById(productId);
+    }
+
+    public void partialUpdateProductById(Long productId, ProductPatchRequest productPatchRequest) {
+        Product product = productRepository.findById(productId)
+                .orElseThrow(() -> new ResourceNotFoundException(
+                        "Product with id [%s] not found".formatted(productId)
+                ));
+
+        //Get owner user from auth
+        Account authUser = utilityService.authenticateUser();
+
+        if (authUser.getId() != product.getOwnerUserId()) {
+            throw new ForbiddenException("You are not allowed to update other people's product");
+        }
+
+        if (productPatchRequest.getName() != null) {
+            if (productPatchRequest.getName().length() == 0) {
+                throw new BadRequestException("Field name can not be empty");
+            }
+            product.setName(productPatchRequest.getName());
+        }
+
+        if (productPatchRequest.getDescription() != null) {
+            if (productPatchRequest.getDescription().length() == 0) {
+                throw new BadRequestException("Field description can not be empty");
+            }
+            product.setDescription(productPatchRequest.getDescription());
+        }
+
+        if (productPatchRequest.getSku() != null) {
+            if (productPatchRequest.getSku().length() == 0) {
+                throw new BadRequestException("Field sku can not be empty");
+            }
+            product.setSku(productPatchRequest.getSku());
+        }
+
+        if (productPatchRequest.getManufacturer() != null) {
+            if (productPatchRequest.getManufacturer().length() == 0) {
+                throw new BadRequestException("Field manufacturer can not be empty");
+            }
+            product.setManufacturer(productPatchRequest.getManufacturer());
+        }
+
+        if (productPatchRequest.getQuantity() != null) {
+            product.setQuantity(productPatchRequest.getQuantity());
+        }
+
+        productRepository.save(product);
     }
 }

@@ -43,8 +43,8 @@ public class Product {
     @NotBlank
     private String manufacturer;
 
-    @Min(0)
-    @Max(100)
+    @Min(value = 0, message = "Attribute must be a positive integer")
+    @Max(value = 100, message = "Quantity can not excel 100")
     @Column(name = "quantity", nullable = false)
     private Long quantity;
 
