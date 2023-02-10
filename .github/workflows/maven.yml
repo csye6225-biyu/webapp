@@ -16,7 +16,7 @@ on:
 
 jobs:
   build:
-
+    name: web app test
     runs-on: ubuntu-latest
     services:
       postgres:
