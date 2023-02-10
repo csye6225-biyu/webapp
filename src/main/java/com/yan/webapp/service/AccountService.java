@@ -49,7 +49,6 @@ public class AccountService {
             throw new ResourceNotFoundException(
                     "account with id [%s] not found".formatted(id));
         }
-        account.setPassword("");
         return modelMapper.map(account, AccountDTO.class);
     }
 

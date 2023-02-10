@@ -12,7 +12,7 @@ import java.util.Date;
 
 @Entity
 @EntityListeners(AuditingEntityListener.class)
-@Table(name = "account", uniqueConstraints = { @UniqueConstraint(columnNames = {"email"})})
+@Table(name = "account", uniqueConstraints = { @UniqueConstraint(columnNames = {"username"})})
 public class Account {
 
     @Id
@@ -27,15 +27,18 @@ public class Account {
     )
     private Long accountId;
 
-    @Column(name = "email")
+    @Column(name = "username")
     @NotBlank
     @Email(regexp = "^([\\w\\.\\-]+)@([\\w\\-]+)((\\.(\\w){2,3})+)$")
     private String email;
 
     @NotBlank
     private String password;
+    @Column(name = "first_name")
     @NotBlank
     private String firstName;
+
+    @Column(name = "last_name")
     @NotBlank
     private String lastName;
 
