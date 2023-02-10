@@ -5,17 +5,16 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
-import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
-import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
-import org.springframework.security.core.userdetails.User;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.web.servlet.LocaleResolver;
+import org.springframework.web.servlet.i18n.SessionLocaleResolver;
+
+import java.util.Locale;
 
 @Configuration
 @EnableWebSecurity
@@ -39,15 +38,16 @@ public class SecurityConfig {
                 .permitAll()
                 .requestMatchers(
                         HttpMethod.GET,
-                        "/healthz"
+                        "/healthz", "/v1/product/**"
                 )
                 .permitAll()
                 .and()
                 .authorizeHttpRequests()
-                .requestMatchers("/v1/user/**")
+                .requestMatchers("/v1/user/**", "/v1/product/**")
                 .authenticated()
                 .and().httpBasic()
                 .and().build();
+
     }
 
     @Bean
@@ -62,7 +62,5 @@ public class SecurityConfig {
         authenticationProvider.setPasswordEncoder(passwordEncoder());
         return authenticationProvider;
     }
-
-
 
 }

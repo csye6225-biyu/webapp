@@ -3,17 +3,16 @@ package com.yan.webapp.model;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotNull;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
-
 
 import java.util.Date;
 
 
 @Entity
 @EntityListeners(AuditingEntityListener.class)
+@Table(name = "account", uniqueConstraints = { @UniqueConstraint(columnNames = {"username"})})
 public class Account {
 
     @Id
@@ -26,14 +25,20 @@ public class Account {
             strategy = GenerationType.SEQUENCE,
             generator = "account_id_sequence"
     )
-    private Long id;
+    private Long accountId;
+
+    @Column(name = "username")
     @NotBlank
+    @Email(regexp = "^([\\w\\.\\-]+)@([\\w\\-]+)((\\.(\\w){2,3})+)$")
     private String email;
 
     @NotBlank
     private String password;
+    @Column(name = "first_name")
     @NotBlank
     private String firstName;
+
+    @Column(name = "last_name")
     @NotBlank
     private String lastName;
 
@@ -57,11 +62,11 @@ public class Account {
     }
 
     public Long getId() {
-        return id;
+        return accountId;
     }
 
     public void setId(Long id) {
-        this.id = id;
+        this.accountId = id;
     }
 
     public String getEmail() {
