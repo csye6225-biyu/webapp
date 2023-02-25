@@ -7,6 +7,10 @@ packer {
   }
 }
 
+variable "profile" {
+  type = string
+  default = "packer"
+}
 variable "aws_region" {
   type    = string
   default = "us-west-2"
@@ -42,7 +46,7 @@ source "amazon-ebs" "my-ami" {
   ]
 
   ami_regions = [
-    "us-west-2"
+    "${var.aws_region}"
   ]
 
   aws_polling {
@@ -54,8 +58,6 @@ source "amazon-ebs" "my-ami" {
   source_ami    = "${var.source_ami}"
   ssh_username  = "${var.ssh_username}"
   subnet_id     = "${var.subnet_id}"
-
-  profile = "packer"
 
   launch_block_device_mappings {
     delete_on_termination = true

@@ -68,7 +68,7 @@ jobs:
   deploy:
     name: packer build
     runs-on: ubuntu-latest
-    needs: test
+#    needs: test
     if: github.event_name == 'pull_request_target' && github.event.action == 'closed' && github.event.pull_request.merged
     steps:
       - name: Checkout code
