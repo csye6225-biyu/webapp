@@ -8,7 +8,7 @@ packer {
 }
 
 variable "profile" {
-  type = string
+  type    = string
   default = "packer"
 }
 variable "aws_region" {
@@ -19,11 +19,6 @@ variable "aws_region" {
 variable "source_ami" {
   type    = string
   default = "ami-0f1a5f5ada0e7da53"
-}
-
-variable "subnet_id" {
-  type    = string
-  default = "subnet-05da55578a8b2c8c0"
 }
 
 variable "ssh_username" {
@@ -57,7 +52,6 @@ source "amazon-ebs" "my-ami" {
   instance_type = "t2.micro"
   source_ami    = "${var.source_ami}"
   ssh_username  = "${var.ssh_username}"
-  subnet_id     = "${var.subnet_id}"
 
   launch_block_device_mappings {
     delete_on_termination = true
