@@ -7,6 +7,10 @@ packer {
   }
 }
 
+variable "profile" {
+  type = string
+  default = "packer"
+}
 variable "aws_region" {
   type    = string
   default = "us-west-2"
@@ -42,7 +46,7 @@ source "amazon-ebs" "my-ami" {
   ]
 
   ami_regions = [
-    "us-west-2"
+    "${var.aws_region}"
   ]
 
   aws_polling {
@@ -55,8 +59,6 @@ source "amazon-ebs" "my-ami" {
   ssh_username  = "${var.ssh_username}"
   subnet_id     = "${var.subnet_id}"
 
-  profile = "packer"
-
   launch_block_device_mappings {
     delete_on_termination = true
     device_name           = "/dev/xvda"
@@ -67,9 +69,9 @@ source "amazon-ebs" "my-ami" {
 
 build {
 
-  sources = [
-    "source.amazon-ebs.my-ami"
-  ]
+#  sources = [
+#    "source.amazon-ebs.my-ami"
+#  ]
 
   provisioner "file" {
     source      = "target/webapp-0.0.1-SNAPSHOT.jar"
