@@ -23,3 +23,7 @@ spring:
     fallback-to-system-locale: true
   web:
     locale: en_US
+
+aws:
+  bucket:
+    name: ${BUCKET_NAME}

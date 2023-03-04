@@ -76,7 +76,7 @@ public class ProductController {
     }
 
     /**
-     * DELETE /v1/product/{productId}
+     * DELETE /v1/product/{productId}De
      * @param id
      * @return
      */
