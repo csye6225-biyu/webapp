@@ -30,6 +30,7 @@ public class ImageController {
             @PathVariable("productId") Long id,
             @RequestParam("file") MultipartFile multipartFile
     ) throws IOException {
+        System.out.println("In POST controller");
         Image image = imageService.uploadImage(id, multipartFile);
         return ResponseEntity.status(HttpStatus.CREATED).body(image);
     }

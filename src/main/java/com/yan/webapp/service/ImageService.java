@@ -35,14 +35,18 @@ public class ImageService {
     }
 
     public Image uploadImage(Long productId, MultipartFile multipartFile) throws IOException {
+        System.out.println("Upload Image service");
         // Get Auth user
         Account authUser = utilityService.authenticateUser();
+        System.out.println("Auth User:" + authUser);
 
         // Check auth
         Product product = productRepository.findById(productId)
                 .orElseThrow(() -> new ResourceNotFoundException(
                         "Product with id [%s] not found".formatted(productId)
                 ));
+
+        System.out.println("product.getAccount(): " + product.getAccount());
 
         if (product.getAccount() != authUser) {
             throw new ForbiddenException("You are not allowed to upload images to other people's product");
@@ -53,12 +57,17 @@ public class ImageService {
         String prefix = fileName.substring(fileName.lastIndexOf("."));
         File file = File.createTempFile(fileName, prefix);
         multipartFile.transferTo(file);
+        System.out.println("Transfer file success");
 
         // Upload to S3
+        System.out.println("Ready to upload photo");
         String key = authUser.getEmail() + "/" + productId + "/" + fileName;
+        System.out.println("Bucket name: " + bucketName);
+        System.out.println("Key: " + key);
         PutObjectResult result =  s3Service.putObject(bucketName,
                 key,
                 file);
+        System.out.println("Upload success");
 
         // Save metadata to database
         Image image = new Image();
@@ -66,6 +75,7 @@ public class ImageService {
         image.setS3_bucket_path(key);
         image.setProductId(productId);
         image = imageRepository.save(image);
+        System.out.println("Data saved to database");
 
         return image;
     }

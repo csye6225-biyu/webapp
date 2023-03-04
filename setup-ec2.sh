@@ -22,7 +22,7 @@ After=syslog.target
 User=${SERVICE_USER}
 EnvironmentFile=/etc/environment
 Restart=always
-RestartSec=10
+RestartSec=3
 ExecStart=/bin/bash -c 'source /etc/environment && /usr/bin/java -jar ${JAR_PATH}'
 SuccessExitStatus=143
 
