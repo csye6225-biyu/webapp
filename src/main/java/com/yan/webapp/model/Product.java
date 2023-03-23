@@ -9,6 +9,7 @@ import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import java.util.Date;
+import java.util.Objects;
 
 @Entity
 @EntityListeners(AuditingEntityListener.class)
@@ -135,5 +136,30 @@ public class Product {
 
     public void setAccount(Account account) {
         this.account = account;
+    }
+
+    @Override
+    public String toString() {
+        return "Product{" +
+                ", name='" + name + '\'' +
+                ", description='" + description + '\'' +
+                ", sku='" + sku + '\'' +
+                ", manufacturer='" + manufacturer + '\'' +
+                ", quantity=" + quantity +
+                ", account=" + account +
+                '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Product product = (Product) o;
+        return Objects.equals(productId, product.productId) && Objects.equals(name, product.name) && Objects.equals(description, product.description) && Objects.equals(sku, product.sku) && Objects.equals(manufacturer, product.manufacturer) && Objects.equals(quantity, product.quantity) && Objects.equals(dateAdded, product.dateAdded) && Objects.equals(dataLastUpdated, product.dataLastUpdated) && Objects.equals(account, product.account);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(productId, name, description, sku, manufacturer, quantity, dateAdded, dataLastUpdated, account);
     }
 }

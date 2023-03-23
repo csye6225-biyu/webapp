@@ -59,4 +59,15 @@ public class ProductPatchRequest {
     public void setQuantity(Long quantity) {
         this.quantity = quantity;
     }
+
+    @Override
+    public String toString() {
+        return "ProductPatchRequest{" +
+                "name='" + name + '\'' +
+                ", description='" + description + '\'' +
+                ", sku='" + sku + '\'' +
+                ", manufacturer='" + manufacturer + '\'' +
+                ", quantity=" + quantity +
+                '}';
+    }
 }

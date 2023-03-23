@@ -24,6 +24,10 @@ spring:
   web:
     locale: en_US
 
+logging:
+  level:
+    root: info
+
 aws:
   bucket:
     name: ${BUCKET_NAME}

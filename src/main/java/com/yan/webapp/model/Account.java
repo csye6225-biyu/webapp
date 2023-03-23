@@ -116,4 +116,13 @@ public class Account {
     public void setAccountUpdated(Date accountUpdated) {
         this.accountUpdated = accountUpdated;
     }
+
+    @Override
+    public String toString() {
+        return "Account{" +
+                ", email='" + email + '\'' +
+                ", firstName='" + firstName + '\'' +
+                ", lastName='" + lastName + '\'' +
+                '}';
+    }
 }

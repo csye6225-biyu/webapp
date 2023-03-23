@@ -8,6 +8,8 @@ import com.yan.webapp.service.ProductService;
 import jakarta.validation.ConstraintViolation;
 import jakarta.validation.Valid;
 import jakarta.validation.Validator;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
@@ -19,12 +21,12 @@ import java.util.Set;
 @Validated
 public class ProductController {
     private final ProductService productService;
-    private final Validator validator;
 
-    public ProductController(ProductService productService, Validator validator) {
+    public ProductController(ProductService productService) {
         this.productService = productService;
-        this.validator = validator;
     }
+
+    Logger logger = LoggerFactory.getLogger(AccountController.class);
 
     /**
      * GET /v1/product/{productId}
@@ -35,7 +37,10 @@ public class ProductController {
 
     @GetMapping("v1/product/{productId}")
     public ProductDTO getProduct(@PathVariable("productId") Long id) {
-        return productService.getProductById(id);
+        logger.info("Received request to get product with ID {}", id);
+        ProductDTO productDTO = productService.getProductById(id);
+        logger.info("Returning product: {}", productDTO);
+        return productDTO;
     }
 
 
@@ -47,7 +52,9 @@ public class ProductController {
      */
     @PostMapping("v1/product")
     public ResponseEntity<ProductDTO> createProduct(@Valid @RequestBody Product product){
+        logger.info("Received request to create product: {}", product);
         ProductDTO productDTO = productService.createProduct(product);
+        logger.info("Created product: {}", productDTO);
         return ResponseEntity.status(HttpStatus.CREATED).body(productDTO);
     }
 
@@ -62,7 +69,9 @@ public class ProductController {
             @PathVariable("productId") Long id,
             @Valid @RequestBody Product product
             ) {
+        logger.info("Received request to update product with ID {}: {}", id, product);
         productService.updateProductById(id, product);
+        logger.info("Product with ID {} updated successfully", id);
         return ResponseEntity.noContent().build();
     }
 
@@ -71,7 +80,9 @@ public class ProductController {
             @PathVariable("productId") Long id,
             @RequestBody @Valid ProductPatchRequest productPatchRequest
             ){
+        logger.info("Received request to partially update product with ID {}: {}", id, productPatchRequest);
         productService.partialUpdateProductById(id, productPatchRequest);
+        logger.info("Partially updated product with ID {}", id);
         return ResponseEntity.noContent().build();
     }
 
@@ -82,7 +93,9 @@ public class ProductController {
      */
     @DeleteMapping("v1/product/{productId}")
     public ResponseEntity<Void> deleteProduct(@PathVariable("productId") Long id){
+        logger.info("Received request to delete product with ID {}", id);
         productService.deleteProductById(id);
+        logger.info("Deleted product with ID {}", id);
         return ResponseEntity.noContent().build();
     }
 }

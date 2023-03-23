@@ -5,6 +5,8 @@ import com.amazonaws.services.s3.model.PutObjectResult;
 import com.yan.webapp.model.Image;
 import com.yan.webapp.service.ImageService;
 import com.yan.webapp.service.S3Service;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -25,13 +27,16 @@ public class ImageController {
         this.imageService = imageService;
     }
 
+    Logger logger = LoggerFactory.getLogger(AccountController.class);
+
     @PostMapping(value = "/{productId}/image")
     public ResponseEntity<Image>  uploadImage(
             @PathVariable("productId") Long id,
             @RequestParam("file") MultipartFile multipartFile
     ) throws IOException {
-        System.out.println("In POST controller");
+        logger.info("Received request to upload image for product ID {}", id);
         Image image = imageService.uploadImage(id, multipartFile);
+        logger.info("Image uploaded successfully for product ID {}: {}", id, image);
         return ResponseEntity.status(HttpStatus.CREATED).body(image);
     }
 
@@ -39,7 +44,9 @@ public class ImageController {
     public ResponseEntity<List<Image>> getImages(
             @PathVariable("productId") Long productId
     ) {
+        logger.info("Received request to get images for product ID {}", productId);
         List<Image> images = imageService.getImagesByProductId(productId);
+        logger.info("Returning {} images for product ID {}", images.size(), productId);
         return ResponseEntity.status(HttpStatus.OK).body(images);
     }
 
@@ -48,7 +55,9 @@ public class ImageController {
             @PathVariable("productId") Long productId,
             @PathVariable("imageId") Long imageId
     ) {
+        logger.info("Received request to get image with ID {} for product ID {}", imageId, productId);
         Image image = imageService.getImageById(productId, imageId);
+        logger.info("Returning image with ID {} for product ID {}: {}", imageId, productId, image);
         return ResponseEntity.status(HttpStatus.OK).body(image);
     }
 
@@ -57,7 +66,9 @@ public class ImageController {
             @PathVariable("productId") Long productId,
             @PathVariable("imageId") Long imageId
     ) {
+        logger.info("Received request to delete image with ID {} for product ID {}", imageId, productId);
         imageService.deleteImageById(productId, imageId);
+        logger.info("Image with ID {} for product ID {} deleted successfully", imageId, productId);
         return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
     }
 }
