@@ -68,6 +68,11 @@ build {
   ]
 
   provisioner "file" {
+    source      = "./cloudwatch-config.json"
+    destination = "/tmp/"
+  }
+
+  provisioner "file" {
     source      = "target/webapp-0.0.1-SNAPSHOT.jar"
     destination = "/home/ec2-user/"
   }

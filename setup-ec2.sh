@@ -8,6 +8,12 @@ sudo yum update -y
 # Install Java
 sudo yum install java-17-amazon-corretto-devel -y
 
+# Install cloud watch agent
+sudo yum install amazon-cloudwatch-agent -y
+
+# Move cloudwatch-config.json to /opt
+sudo mv /tmp/cloudwatch-config.json /opt
+
 # Install Spring Boot application as a systemd service
 SERVICE_NAME=csye6225webapp
 JAR_PATH=/home/ec2-user/webapp-0.0.1-SNAPSHOT.jar
