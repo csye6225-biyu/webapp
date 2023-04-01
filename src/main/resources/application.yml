@@ -24,10 +24,18 @@ spring:
   web:
     locale: en_US
 
+aws:
+  bucket:
+    name: ${BUCKET_NAME}
+
 logging:
   level:
     root: info
 
-aws:
-  bucket:
-    name: ${BUCKET_NAME}
+publish:
+  metrics: true
+metrics:
+  server:
+    hostname: localhost
+    port: 8125
+
