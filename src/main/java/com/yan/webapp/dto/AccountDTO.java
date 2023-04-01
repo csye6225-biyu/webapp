@@ -1,6 +1,7 @@
 package com.yan.webapp.dto;
 
 import java.util.Date;
+import java.util.Objects;
 
 public class AccountDTO {
     private Long id;
@@ -56,5 +57,30 @@ public class AccountDTO {
 
     public void setAccountUpdated(Date accountUpdated) {
         this.accountUpdated = accountUpdated;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        AccountDTO that = (AccountDTO) o;
+        return Objects.equals(id, that.id) && Objects.equals(email, that.email) && Objects.equals(firstName, that.firstName) && Objects.equals(lastName, that.lastName) && Objects.equals(accountCreated, that.accountCreated) && Objects.equals(accountUpdated, that.accountUpdated);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, email, firstName, lastName, accountCreated, accountUpdated);
+    }
+
+    @Override
+    public String toString() {
+        return "AccountDTO{" +
+                "id=" + id +
+                ", email='" + email + '\'' +
+                ", firstName='" + firstName + '\'' +
+                ", lastName='" + lastName + '\'' +
+                ", accountCreated=" + accountCreated +
+                ", accountUpdated=" + accountUpdated +
+                '}';
     }
 }

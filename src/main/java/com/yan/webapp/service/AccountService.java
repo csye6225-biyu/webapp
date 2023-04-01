@@ -1,5 +1,6 @@
 package com.yan.webapp.service;
 
+import com.yan.webapp.controller.AccountController;
 import com.yan.webapp.dto.AccountDTO;
 import com.yan.webapp.dto.AccountUpdateRequest;
 import com.yan.webapp.exception.BadRequestException;
@@ -8,6 +9,8 @@ import com.yan.webapp.exception.ResourceNotFoundException;
 import com.yan.webapp.model.Account;
 import com.yan.webapp.repository.AccountRepository;
 import org.modelmapper.ModelMapper;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -32,6 +35,8 @@ public class AccountService {
         this.accountRepository = accountRepository;
         this.utilityService = utilityService;
     }
+
+    Logger logger = LoggerFactory.getLogger(AccountController.class);
 
     ModelMapper modelMapper = new ModelMapper();
 

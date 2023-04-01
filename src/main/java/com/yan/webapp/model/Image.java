@@ -81,4 +81,14 @@ public class Image {
         this.productId = productId;
     }
 
+    @Override
+    public String toString() {
+        return "Image{" +
+                "imageId=" + imageId +
+                ", productId=" + productId +
+                ", fileName='" + fileName + '\'' +
+                ", dateCreated=" + dateCreated +
+                ", s3BucketPath='" + s3BucketPath + '\'' +
+                '}';
+    }
 }

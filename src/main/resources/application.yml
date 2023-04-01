@@ -27,3 +27,15 @@ spring:
 aws:
   bucket:
     name: ${BUCKET_NAME}
+
+logging:
+  level:
+    root: info
+
+publish:
+  metrics: true
+metrics:
+  server:
+    hostname: localhost
+    port: 8125
+

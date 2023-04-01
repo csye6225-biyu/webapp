@@ -100,4 +100,19 @@ public class ProductDTO {
         public void setAccountId(Long accountId) {
                 this.accountId = accountId;
         }
+
+        @Override
+        public String toString() {
+                return "ProductDTO{" +
+                        "productId=" + productId +
+                        ", name='" + name + '\'' +
+                        ", description='" + description + '\'' +
+                        ", sku='" + sku + '\'' +
+                        ", manufacturer='" + manufacturer + '\'' +
+                        ", quantity=" + quantity +
+                        ", dateAdded=" + dateAdded +
+                        ", dataLastUpdated=" + dataLastUpdated +
+                        ", accountId=" + accountId +
+                        '}';
+        }
 }
