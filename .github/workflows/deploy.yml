@@ -47,3 +47,4 @@ jobs:
 
       - name: Instance refresh
         run: aws autoscaling start-instance-refresh --auto-scaling-group-name ${{ secrets.ASG_NAME }}
+
