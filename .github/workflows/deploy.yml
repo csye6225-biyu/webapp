@@ -35,9 +35,9 @@ jobs:
 
       - name: Packer Init
         run: packer init .
-
-      - name: Packer Build
-        run: packer build .
+#
+#      - name: Packer Build
+#        run: packer build .
 
       - name: Get new AMI id
         run: AMI_ID=$(aws ec2 describe-images --filters "Name=name,Values=csye6225_*" --query "reverse(sort_by(Images, &CreationDate))[:1].ImageId")
