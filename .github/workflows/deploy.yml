@@ -23,6 +23,9 @@ jobs:
           distribution: 'temurin'
           cache: maven
 
+      - name: Build and run Unit/Integration Tests with Maven
+        run: mvn -ntp -B verify
+
       - name: Build application artifact
         run: mvn package -DskipTests
 
@@ -35,6 +38,9 @@ jobs:
 
       - name: Packer Init
         run: packer init .
+
+      - name: Packer validate
+        run: packer validate .
 
       - name: Packer Build
         run: packer build .

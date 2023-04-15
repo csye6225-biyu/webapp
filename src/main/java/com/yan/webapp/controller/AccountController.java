@@ -38,6 +38,15 @@ public class AccountController {
         return ResponseEntity.ok().build();
     }
 
+    @GetMapping("health")
+    public ResponseEntity<Void> greetTest() {
+        logger.info("Received request to check application health status");
+
+        statsDClient.incrementCounter("endpoint.greetTest.http.get");
+
+        return ResponseEntity.ok().build();
+    }
+
 
     @GetMapping("v1/user/{accountId}")
     public AccountDTO getAccount(@PathVariable("accountId") Long id) {
