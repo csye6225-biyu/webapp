@@ -47,7 +47,6 @@ public class AccountController {
         return ResponseEntity.ok().build();
     }
 
-
     @GetMapping("v1/user/{accountId}")
     public AccountDTO getAccount(@PathVariable("accountId") Long id) {
         logger.info("Received request to get account with ID {}", id);
