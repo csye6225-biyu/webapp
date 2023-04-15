@@ -2,6 +2,12 @@
 
 ## To be updated
 
+## AWS CLI command to import SSL Certificate to AWS Certificate Manager
+
+```bash
+aws acm import-certificate --certificate fileb://Certificate.pem --certificate-chain fileb://CertificateChain.pem --private-key fileb://PrivateKey.pem
+```
+
 ## Requirements
 
 For building and running the application you need:
