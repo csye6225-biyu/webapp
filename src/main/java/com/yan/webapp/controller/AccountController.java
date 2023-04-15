@@ -31,7 +31,7 @@ public class AccountController {
 
     @GetMapping("healthz")
     public ResponseEntity<Void> greet() {
-        logger.info("Received request to check application health status");
+        logger.info("Received request to check application healthz status");
 
         statsDClient.incrementCounter("endpoint.greet.http.get");
 
@@ -46,7 +46,6 @@ public class AccountController {
 
         return ResponseEntity.ok().build();
     }
-
 
     @GetMapping("v1/user/{accountId}")
     public AccountDTO getAccount(@PathVariable("accountId") Long id) {
