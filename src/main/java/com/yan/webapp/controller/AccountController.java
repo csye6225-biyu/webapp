@@ -38,14 +38,14 @@ public class AccountController {
         return ResponseEntity.ok().build();
     }
 
-    @GetMapping("health")
-    public ResponseEntity<Void> health() {
-        logger.info("Received request to check application health status");
-
-        statsDClient.incrementCounter("endpoint.health.http.get");
-
-        return ResponseEntity.ok().build();
-    }
+//    @GetMapping("health")
+//    public ResponseEntity<Void> health() {
+//        logger.info("Received request to check application health status");
+//
+//        statsDClient.incrementCounter("endpoint.health.http.get");
+//
+//        return ResponseEntity.ok().build();
+//    }
 
 
     @GetMapping("v1/user/{accountId}")
