@@ -33,17 +33,17 @@ public class SecurityConfig {
                 .authorizeHttpRequests()
                 .requestMatchers(
                         HttpMethod.POST,
-                        "/v1/user"
+                        "/v2/user"
                 )
                 .permitAll()
                 .requestMatchers(
                         HttpMethod.GET,
-                        "/healthz", "/v1/product/**", "/health"
+                        "/healthz", "/v2/product/**", "/health"
                 )
                 .permitAll()
                 .and()
                 .authorizeHttpRequests()
-                .requestMatchers("/v1/user/**", "/v1/product/**")
+                .requestMatchers("/v2/user/**", "/v2/product/**")
                 .authenticated()
                 .and().httpBasic()
                 .and().build();
