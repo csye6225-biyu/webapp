@@ -34,7 +34,7 @@ public class ProductController {
      * @return ProductDTO
      */
 
-    @GetMapping("v1/product/{productId}")
+    @GetMapping("v2/product/{productId}")
     public ProductDTO getProduct(@PathVariable("productId") Long id) {
         logger.info("Received request to get product with ID {}", id);
         statsDClient.incrementCounter("endpoint.product.http.get");
@@ -56,7 +56,7 @@ public class ProductController {
      * @param product
      * @return ProductDTO
      */
-    @PostMapping("v1/product")
+    @PostMapping("v2/product")
     public ResponseEntity<ProductDTO> createProduct(@Valid @RequestBody Product product){
         logger.info("Received request to create product: {}", product);
         statsDClient.incrementCounter("endpoint.product.http.post");
@@ -77,7 +77,7 @@ public class ProductController {
      * @param product
      * @return
      */
-    @PutMapping("v1/product/{productId}")
+    @PutMapping("v2/product/{productId}")
     public ResponseEntity<Void> updateProduct(
             @PathVariable("productId") Long id,
             @Valid @RequestBody Product product
@@ -95,7 +95,7 @@ public class ProductController {
         return ResponseEntity.noContent().build();
     }
 
-    @PatchMapping("v1/product/{productId}")
+    @PatchMapping("v2/product/{productId}")
     public ResponseEntity<Void> partialUpdateUser(
             @PathVariable("productId") Long id,
             @RequestBody @Valid ProductPatchRequest productPatchRequest
@@ -118,7 +118,7 @@ public class ProductController {
      * @param id
      * @return
      */
-    @DeleteMapping("v1/product/{productId}")
+    @DeleteMapping("v2/product/{productId}")
     public ResponseEntity<Void> deleteProduct(@PathVariable("productId") Long id){
         logger.info("Received request to delete product with ID {}", id);
         statsDClient.incrementCounter("endpoint.product.http.delete");

@@ -48,7 +48,7 @@ public class AccountController {
 //    }
 
 
-    @GetMapping("v1/user/{accountId}")
+    @GetMapping("v2/user/{accountId}")
     public AccountDTO getAccount(@PathVariable("accountId") Long id) {
         logger.info("Received request to get account with ID {}", id);
         statsDClient.incrementCounter("endpoint.account.http.get");
@@ -63,7 +63,7 @@ public class AccountController {
         return accountDTO;
     }
 
-    @PostMapping("v1/user")
+    @PostMapping("v2/user")
     public ResponseEntity<AccountDTO> createAccount(@Valid @RequestBody Account account){
         logger.info("Received request to create a new account: {}", account);
         statsDClient.incrementCounter("endpoint.account.http.post");
@@ -78,7 +78,7 @@ public class AccountController {
         return ResponseEntity.status(HttpStatus.CREATED).body(accountDTO);
     }
 
-    @PutMapping("v1/user/{accountId}")
+    @PutMapping("v2/user/{accountId}")
     public ResponseEntity<Void>  updateAccount(
             @PathVariable("accountId") Long id,
             @RequestBody AccountUpdateRequest updateRequest

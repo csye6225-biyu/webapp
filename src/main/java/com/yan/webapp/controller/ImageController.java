@@ -15,7 +15,7 @@ import java.io.IOException;
 import java.util.List;
 
 @RestController
-@RequestMapping(value = "/v1/product")
+@RequestMapping(value = "/v2/product")
 public class ImageController {
 
     private final S3Service s3Service;
